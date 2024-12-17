@@ -14,7 +14,7 @@ public:
 
     static void altaMedico(std::vector<Medico>& medicos, std::string nombre, int id, std::string especialidad);
     static void bajaMedico(std::vector<Medico>& medicos, int id);
-    static void listarMedicos(const std::vector<Medico>& medicos);
+    static void listarMedicosDesdeArchivo();
     static void guardarMedicoEnArchivo(const Medico& medico);
 };
 

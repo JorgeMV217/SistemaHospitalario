@@ -37,7 +37,7 @@ void gestionarPacientes(vector<Paciente>& pacientes) {
             Paciente::bajaPaciente(pacientes, id);
             break;
         case 3:
-            Paciente::listarPacientes(pacientes);
+            Paciente::listarPacientesDesdeArchivo();
             break;
         case 4:
             return;
@@ -79,7 +79,7 @@ void gestionarMedicos(vector<Medico>& medicos) {
             Medico::bajaMedico(medicos, id);
             break;
         case 3:
-            Medico::listarMedicos(medicos);
+            Medico::listarMedicosDesdeArchivo();
             break;
         case 4:
             return;
@@ -126,7 +126,7 @@ void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes
             CitaMedica::cancelarCita(citas, idPaciente, idMedico);
             break;
         case 3:
-            CitaMedica::listarCitas(citas);
+            CitaMedica::listarCitasDesdeArchivo();
             break;
         case 4:
             return;

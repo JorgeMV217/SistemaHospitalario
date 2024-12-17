@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <fstream>
+#include <sstream>
 
 CitaMedica::CitaMedica(int idPaciente, int idMedico, std::string fecha, bool esUrgente)
     : idPaciente(idPaciente), idMedico(idMedico), fecha(fecha), esUrgente(esUrgente) {
@@ -17,9 +18,23 @@ void CitaMedica::cancelarCita(std::vector<CitaMedica>& citas, int idPaciente, in
     citas.erase(std::remove_if(citas.begin(), citas.end(), [idPaciente, idMedico](CitaMedica& c) { return c.idPaciente == idPaciente && c.idMedico == idMedico; }), citas.end());
 }
 
-void CitaMedica::listarCitas(const std::vector<CitaMedica>& citas) {
-    for (const auto& cita : citas) {
-        std::cout << "ID Paciente: " << cita.idPaciente << ", ID Médico: " << cita.idMedico << ", Fecha: " << cita.fecha << ", Urgente: " << (cita.esUrgente ? "Sí" : "No") << std::endl;
+void CitaMedica::listarCitasDesdeArchivo() {
+    std::ifstream archivo("../SistemaHospitalario/data/citas.txt");
+    if (archivo.is_open()) {
+        std::string linea;
+        while (std::getline(archivo, linea)) {
+            std::istringstream iss(linea);
+            std::string idPaciente, idMedico, fecha, esUrgente;
+            std::getline(iss, idPaciente, ',');
+            std::getline(iss, idMedico, ',');
+            std::getline(iss, fecha, ',');
+            std::getline(iss, esUrgente, ',');
+            std::cout << "ID Paciente: " << idPaciente << ", ID Médico: " << idMedico << ", Fecha: " << fecha << ", Urgente: " << esUrgente << std::endl;
+        }
+        archivo.close();
+    }
+    else {
+        std::cerr << "No se pudo abrir el archivo para leer los datos de las citas.\n";
     }
 }
 

@@ -15,7 +15,7 @@ public:
 
     static void asignarCita(std::vector<CitaMedica>& citas, int idPaciente, int idMedico, std::string fecha, bool esUrgente);
     static void cancelarCita(std::vector<CitaMedica>& citas, int idPaciente, int idMedico);
-    static void listarCitas(const std::vector<CitaMedica>& citas);
+    static void listarCitasDesdeArchivo();
     static void guardarCitaEnArchivo(const CitaMedica& cita);
 };
 

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 #include <fstream>
+#include <sstream>
+
 
 Medico::Medico(std::string nombre, int id, std::string especialidad)
     : nombre(nombre), id(id), especialidad(especialidad) {
@@ -17,9 +19,10 @@ void Medico::bajaMedico(std::vector<Medico>& medicos, int id) {
     medicos.erase(std::remove_if(medicos.begin(), medicos.end(), [id](Medico& m) { return m.id == id; }), medicos.end());
 }
 
-void Medico::listarMedicos(const std::vector<Medico>& medicos) {
-    for (const auto& medico : medicos) {
-        std::cout << "Nombre: " << medico.nombre << ", ID: " << medico.id << ", Especialidad: " << medico.especialidad << std::endl;
+void Medico::listarMedicosDesdeArchivo() {
+    std::ifstream archivo("../SistemaHospitalario/data/medicos.txt"); if (archivo.is_open()) { std::string linea; while (std::getline(archivo, linea)) { std::istringstream iss(linea); std::string nombre, id, especialidad; std::getline(iss, nombre, ','); std::getline(iss, id, ','); std::getline(iss, especialidad, ','); std::cout << "Nombre: " << nombre << ", ID: " << id << ", Especialidad: " << especialidad << std::endl; } archivo.close(); }
+    else {
+        std::cerr << "No se pudo abrir el archivo para leer los datos de los médicos.\n";
     }
 }
 
