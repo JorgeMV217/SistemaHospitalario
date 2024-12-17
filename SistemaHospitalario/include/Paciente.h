@@ -20,7 +20,6 @@ public:
     static void listarPacientes(const std::vector<Paciente>& pacientes);
     static void guardarPacienteEnArchivo(const Paciente& paciente);
 };
-};
 
 #endif
 
