@@ -24,7 +24,7 @@ void Medico::listarMedicos(const std::vector<Medico>& medicos) {
 }
 
 void Medico::guardarMedicoEnArchivo(const Medico& medico) {
-    std::ofstream archivo("data/medicos.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
+    std::ofstream archivo("medicos.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
     if (archivo.is_open()) {
         archivo << medico.nombre << "," << medico.id << "," << medico.especialidad << "\n";
         archivo.close();

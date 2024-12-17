@@ -24,7 +24,7 @@ void CitaMedica::listarCitas(const std::vector<CitaMedica>& citas) {
 }
 
 void CitaMedica::guardarCitaEnArchivo(const CitaMedica& cita) {
-    std::ofstream archivo("data/citas.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
+    std::ofstream archivo("citas.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
     if (archivo.is_open()) {
         archivo << cita.idPaciente << "," << cita.idMedico << "," << cita.fecha << "," << (cita.esUrgente ? "Sí" : "No") << "\n";
         archivo.close();

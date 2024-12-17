@@ -32,7 +32,7 @@ void Paciente::listarPacientes(const std::vector<Paciente>& pacientes) {
 }
 
 void Paciente::guardarPacienteEnArchivo(const Paciente& paciente) {
-    std::ofstream archivo("data/pacientes.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
+    std::ofstream archivo("pacientes.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
     if (archivo.is_open()) {
         archivo << paciente.nombre << "," << paciente.id << "," << paciente.fechaIngreso << "," << paciente.historialClinico << "\n";
         archivo.close();
