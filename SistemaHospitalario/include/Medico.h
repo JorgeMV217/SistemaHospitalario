@@ -16,6 +16,7 @@ public:
     static void bajaMedico(std::vector<Medico>& medicos, int id);
     static void listarMedicosDesdeArchivo();
     static void guardarMedicoEnArchivo(const Medico& medico);
+    static int obtenerUltimoID();
 };
 
 #endif

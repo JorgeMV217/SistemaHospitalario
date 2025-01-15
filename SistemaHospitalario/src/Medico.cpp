@@ -20,7 +20,19 @@ void Medico::bajaMedico(std::vector<Medico>& medicos, int id) {
 }
 
 void Medico::listarMedicosDesdeArchivo() {
-    std::ifstream archivo("../SistemaHospitalario/data/medicos.txt"); if (archivo.is_open()) { std::string linea; while (std::getline(archivo, linea)) { std::istringstream iss(linea); std::string nombre, id, especialidad; std::getline(iss, nombre, ','); std::getline(iss, id, ','); std::getline(iss, especialidad, ','); std::cout << "Nombre: " << nombre << ", ID: " << id << ", Especialidad: " << especialidad << std::endl; } archivo.close(); }
+    std::ifstream archivo("../SistemaHospitalario/data/medicos.txt");
+    if (archivo.is_open()) { 
+        std::string linea; 
+        while (std::getline(archivo, linea)) { 
+            std::istringstream iss(linea);
+            std::string id, nombre, especialidad;
+            std::getline(iss, id, ',');
+            std::getline(iss, nombre, ',');
+            std::getline(iss, especialidad, ',');
+            std::cout << "ID: " << id << ", Nombre: " << nombre << ", Especialidad: " << especialidad << std::endl;
+        }
+        archivo.close(); 
+    }
     else {
         std::cerr << "No se pudo abrir el archivo para leer los datos de los médicos.\n";
     }
@@ -29,10 +41,30 @@ void Medico::listarMedicosDesdeArchivo() {
 void Medico::guardarMedicoEnArchivo(const Medico& medico) {
     std::ofstream archivo("medicos.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
     if (archivo.is_open()) {
-        archivo << medico.nombre << "," << medico.id << "," << medico.especialidad << "\n";
+        archivo << medico.id << "," << medico.nombre << "," << medico.especialidad << "\n";
         archivo.close();
     }
     else {
         std::cerr << "No se pudo abrir el archivo para guardar los datos del médico.\n";
     }
+}
+int Medico::obtenerUltimoID() {
+    std::ifstream archivo("medicos.txt");
+    int ultimoID = 0;
+    if (archivo.is_open()) {
+        std::string linea;
+        while (std::getline(archivo, linea)) {
+            std::istringstream iss(linea);
+            std::string idStr;
+            std::getline(iss, idStr, ',');
+
+            int idMedico;
+            std::stringstream ss(idStr);
+            ss >> idMedico;
+            ultimoID = idMedico;
+
+        }
+        archivo.close();
+    }
+    return ultimoID;
 }

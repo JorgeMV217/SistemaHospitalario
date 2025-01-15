@@ -25,11 +25,9 @@ void gestionarPacientes(vector<Paciente>& pacientes) {
         case 1:
             cout << "Nombre: ";
             cin >> nombre;
-            cout << "ID: ";
-            cin >> id;
             cout << "Fecha de Ingreso: ";
             cin >> fechaIngreso;
-            Paciente::altaPaciente(pacientes, nombre, id, fechaIngreso);
+            Paciente::altaPaciente(pacientes, nombre, 0, fechaIngreso);
             break;
         case 2:
             cout << "ID del paciente a dar de baja: ";
@@ -67,11 +65,9 @@ void gestionarMedicos(vector<Medico>& medicos) {
         case 1:
             cout << "Nombre: ";
             cin >> nombre;
-            cout << "ID: ";
-            cin >> id;
             cout << "Especialidad: ";
             cin >> especialidad;
-            Medico::altaMedico(medicos, nombre, id, especialidad);
+            Medico::altaMedico(medicos, nombre, 0, especialidad);
             break;
         case 2:
             cout << "ID del médico a dar de baja: ";
