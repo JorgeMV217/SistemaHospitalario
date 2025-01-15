@@ -10,17 +10,50 @@ Medico::Medico(std::string nombre, int id, std::string especialidad)
 }
 
 void Medico::altaMedico(std::vector<Medico>& medicos, std::string nombre, int id, std::string especialidad) {
-    Medico nuevoMedico(nombre, id, especialidad);
+    int nuevoID = obtenerUltimoID() + 1;
+    Medico nuevoMedico(nombre, nuevoID, especialidad);
     medicos.push_back(nuevoMedico);
     guardarMedicoEnArchivo(nuevoMedico);
 }
 
 void Medico::bajaMedico(std::vector<Medico>& medicos, int id) {
-    medicos.erase(std::remove_if(medicos.begin(), medicos.end(), [id](Medico& m) { return m.id == id; }), medicos.end());
+    medicos.erase(std::remove_if(medicos.begin(), medicos.end(), [id](Medico& m) {
+        return m.id == id;
+        }), medicos.end());
+
+    std::ifstream archivoEntrada("medicos.txt");
+    std::ofstream archivoTemporal("medicos_temp.txt");
+
+    if (archivoEntrada.is_open() && archivoTemporal.is_open()) {
+        std::string linea;
+        while (std::getline(archivoEntrada, linea)) {
+            std::istringstream iss(linea);
+            std::string medicoId;
+            std::getline(iss, medicoId, ',');
+
+            int idMedico;
+            std::stringstream ss(medicoId);
+            ss >> idMedico;
+            if (idMedico != id) {
+                archivoTemporal << linea << "\n";
+            }
+
+        }
+        archivoEntrada.close();
+        archivoTemporal.close();
+
+        std::remove("medicos.txt");
+        std::rename("medicos_temp.txt","medicos.txt");
+    }
+    else {
+        std::cerr << "No se pudo abrir el archivo para modificar los datos de los medicos.\n";
+    }
+
+
 }
 
 void Medico::listarMedicosDesdeArchivo() {
-    std::ifstream archivo("../SistemaHospitalario/data/medicos.txt");
+    std::ifstream archivo("medicos.txt");
     if (archivo.is_open()) { 
         std::string linea; 
         while (std::getline(archivo, linea)) { 

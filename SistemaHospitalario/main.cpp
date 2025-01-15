@@ -88,6 +88,7 @@ void gestionarMedicos(vector<Medico>& medicos) {
 
 void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes, const vector<Medico>& medicos) {
     int opcion;
+    int idCita;
     int idPaciente;
     int idMedico;
     string fecha;
@@ -112,14 +113,12 @@ void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes
             cin >> fecha;
             cout << "Es urgente? (1 para sí, 0 para no): ";
             cin >> esUrgente;
-            CitaMedica::asignarCita(citas, idPaciente, idMedico, fecha, esUrgente);
+            CitaMedica::asignarCita(citas, 0, idPaciente, idMedico, fecha, esUrgente);
             break;
         case 2:
-            cout << "ID del Paciente: ";
-            cin >> idPaciente;
-            cout << "ID del Médico: ";
-            cin >> idMedico;
-            CitaMedica::cancelarCita(citas, idPaciente, idMedico);
+            cout << "ID de la Cita: ";
+            cin >> idCita;
+            CitaMedica::cancelarCita(citas, idCita);
             break;
         case 3:
             CitaMedica::listarCitasDesdeArchivo();
