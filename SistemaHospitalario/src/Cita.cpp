@@ -50,7 +50,7 @@ void CitaMedica::cancelarCita(std::vector<CitaMedica>& citas, int idCita) {
 }
 
 void CitaMedica::listarCitasDesdeArchivo() {
-    std::ifstream archivo("../SistemaHospitalario/data/citas.txt");
+    std::ifstream archivo("citas.txt");
     if (archivo.is_open()) {
         std::string linea;
         while (std::getline(archivo, linea)) {
