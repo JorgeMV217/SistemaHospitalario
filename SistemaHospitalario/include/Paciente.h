@@ -11,7 +11,6 @@ public:
     std::string fechaIngreso;
 
     Paciente(std::string nombre, int id, std::string fechaIngreso);
-    void modificarDatos(std::string nuevoNombre);
 
     static void altaPaciente(std::vector<Paciente>& pacientes, std::string nombre, int id, std::string fechaIngreso);
     static void bajaPaciente(std::vector<Paciente>& pacientes, int id);

@@ -9,10 +9,6 @@ Paciente::Paciente(std::string nombre, int id, std::string fechaIngreso)
     : nombre(nombre), id(id), fechaIngreso(fechaIngreso) {
 }
 
-void Paciente::modificarDatos(std::string nuevoNombre) {
-    nombre = nuevoNombre;
-}
-
 
 void Paciente::altaPaciente(std::vector<Paciente>& pacientes, std::string nombre, int id, std::string fechaIngreso) {
     int nuevoID = obtenerUltimoID() + 1;
