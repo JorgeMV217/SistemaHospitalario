@@ -64,12 +64,11 @@ void Paciente::listarPacientesDesdeArchivo() {
         std::string linea;
         while (std::getline(archivo, linea)){
             std::istringstream iss(linea); 
-            std::string id, nombre, fechaIngreso, historialClinico;
+            std::string id, nombre, fechaIngreso;
             std::getline(iss, id, ','); 
             std::getline(iss, nombre, ','); 
             std::getline(iss, fechaIngreso, ','); 
-            std::getline(iss, historialClinico, ',');
-            std::cout << "ID: " << id << ", Nombre: " << nombre << ", Fecha de Ingreso: " << fechaIngreso << ", Historial Clínico: " << historialClinico << std::endl; } archivo.close();
+            std::cout << "ID: " << id << ", Nombre: " << nombre << ", Fecha de Ingreso: " << fechaIngreso << std::endl; } archivo.close();
     }
     else { std::cerr << "No se pudo abrir el archivo para leer los datos de los pacientes.\n"; }
 }
