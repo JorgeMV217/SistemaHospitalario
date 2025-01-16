@@ -5,7 +5,6 @@
 project(SistemaHospitalario)
 # Agregue un origen al ejecutable de este proyecto.
 
-set(CMAKE_CXX_COMPILER "cl")
 
 
 # TODO: Agregue pruebas y destinos de instalación si es necesario.
