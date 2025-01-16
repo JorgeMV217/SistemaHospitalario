@@ -20,13 +20,14 @@ void gestionarPacientes(vector<Paciente>& pacientes) {
         cout << "4. Volver al menú principal\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
+        cin.ignore();
 
         switch (opcion) {
         case 1:
             cout << "Nombre: ";
-            cin >> nombre;
+            getline(cin, nombre);
             cout << "Fecha de Ingreso: ";
-            cin >> fechaIngreso;
+            getline(cin, fechaIngreso);
             Paciente::altaPaciente(pacientes, nombre, 0, fechaIngreso);
             break;
         case 2:
@@ -60,13 +61,14 @@ void gestionarMedicos(vector<Medico>& medicos) {
         cout << "4. Volver al menú principal\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
+        cin.ignore();
 
         switch (opcion) {
         case 1:
             cout << "Nombre: ";
-            cin >> nombre;
+            getline(cin, nombre);
             cout << "Especialidad: ";
-            cin >> especialidad;
+            getline(cin, especialidad);
             Medico::altaMedico(medicos, nombre, 0, especialidad);
             break;
         case 2:
@@ -102,6 +104,7 @@ void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes
         cout << "4. Volver al menú principal\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
+        cin.ignore();
 
         switch (opcion) {
         case 1:
@@ -142,7 +145,7 @@ int main() {
     do {
         cout << "\nMenú Principal\n";
         cout << "1. Gestionar Pacientes\n";
-        cout << "2. Gestionar Médicos\n";
+        wcout << "2. Gestionar Médicos\n";
         cout << "3. Gestionar Citas\n";
         cout << "4. Salir\n";
         cout << "Seleccione una opción: ";
