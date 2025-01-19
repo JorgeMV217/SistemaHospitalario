@@ -81,6 +81,43 @@ void Medico::guardarMedicoEnArchivo(const Medico& medico) {
         std::cerr << "No se pudo abrir el archivo para guardar los datos del médico.\n";
     }
 }
+
+void Medico::mostrarInformacionMedico(int id) {
+    std::ifstream archivo("medicos.txt");
+    if (archivo.is_open()) {
+        std::string linea;
+        bool encontrado = false;
+        while (std::getline(archivo, linea)) {
+            std::istringstream iss(linea);
+            std::string idStr, nombre, especialidad;
+            std::getline(iss, idStr, ',');
+            std::getline(iss, nombre, ',');
+            std::getline(iss, especialidad, ',');
+
+            int idMedico;
+            std::stringstream ss(idStr);
+            ss >> idMedico;
+
+            if (idMedico == id) {
+                std::cout << "Información del médico:\n";
+                std::cout << "ID: " << idMedico << "\n";
+                std::cout << "Nombre: " << nombre << "\n";
+                std::cout << "Especialidad :" << especialidad << "\n";
+                encontrado = true;
+                break;
+            }
+        }
+        archivo.close();
+        if (!encontrado) {
+            std::cout << "Médico con ID " << id << "no encontrado. \n";
+        }
+
+    }
+    else {
+        std::cerr << "No se pudo abrir el archivo para leer los datos de los médicos. \n";
+    }
+}
+
 int Medico::obtenerUltimoID() {
     std::ifstream archivo("medicos.txt");
     int ultimoID = 0;

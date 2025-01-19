@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <wchar.h>
+#include <locale>
 #include "Paciente.h"
 #include "Medico.h"
 #include "Cita.h"
@@ -17,7 +19,8 @@ void gestionarPacientes(vector<Paciente>& pacientes) {
         cout << "1. Alta de paciente\n";
         cout << "2. Baja de paciente\n";
         cout << "3. Listar pacientes\n";
-        cout << "4. Volver al menú principal\n";
+        cout << "4. Mostrar información de un paciente por ID\n";
+        cout << "5. Volver al menú principal\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
         cin.ignore();
@@ -39,6 +42,11 @@ void gestionarPacientes(vector<Paciente>& pacientes) {
             Paciente::listarPacientesDesdeArchivo();
             break;
         case 4:
+            cout << "ID del paciente a mostrar: ";
+            cin >> id;
+            Paciente::mostrarInformacionPaciente(id);
+            break;
+        case 5:
             return;
         default:
             cout << "Opción no válida.\n";
@@ -58,7 +66,8 @@ void gestionarMedicos(vector<Medico>& medicos) {
         cout << "1. Alta de médico\n";
         cout << "2. Baja de médico\n";
         cout << "3. Listar médicos\n";
-        cout << "4. Volver al menú principal\n";
+        cout << "4. Mostrar información de un médico\n";
+        cout << "5. Volver al menú principal\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
         cin.ignore();
@@ -80,6 +89,11 @@ void gestionarMedicos(vector<Medico>& medicos) {
             Medico::listarMedicosDesdeArchivo();
             break;
         case 4:
+            cout << "ID del médico a mostrar: ";
+            cin >> id;
+            Medico::mostrarInformacionMedico(id);
+            break;
+        case 5:
             return;
         default:
             cout << "Opción no válida.\n";
@@ -101,7 +115,8 @@ void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes
         cout << "1. Asignar cita\n";
         cout << "2. Cancelar cita\n";
         cout << "3. Listar citas\n";
-        cout << "4. Volver al menú principal\n";
+        cout << "4. Mostrar información de una cita\n";
+        cout << "5. Volver al menú principal\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
         cin.ignore();
@@ -127,6 +142,11 @@ void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes
             CitaMedica::listarCitasDesdeArchivo();
             break;
         case 4:
+            cout << "ID de la Cita a mostrar: ";
+            cin >> idCita;
+            CitaMedica::mostrarInformacionCita(idCita);
+            break;
+        case 5:
             return;
         default:
             cout << "Opción no válida.\n";
@@ -136,6 +156,8 @@ void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes
 }
 
 int main() {
+
+    setlocale(LC_ALL, "");
     vector<Paciente> pacientes;
     vector<Medico> medicos;
     vector<CitaMedica> citas;

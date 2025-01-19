@@ -17,6 +17,7 @@ public:
     static void listarMedicosDesdeArchivo();
     static void guardarMedicoEnArchivo(const Medico& medico);
     static int obtenerUltimoID();
+    static void mostrarInformacionMedico(int id);
 };
 
 #endif

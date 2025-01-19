@@ -80,6 +80,42 @@ void Paciente::guardarPacienteEnArchivo(const Paciente& paciente) {
     }
 }
 
+void Paciente::mostrarInformacionPaciente(int id) {
+    std::ifstream archivo("pacientes.txt");
+    if (archivo.is_open()) {
+        std::string linea;
+        bool encontrado = false;
+        while (std::getline(archivo, linea)) {
+            std::istringstream iss(linea);
+            std::string idStr, nombre, fechaIngreso;
+            std::getline(iss, idStr, ',');
+            std::getline(iss, nombre, ',');
+            std::getline(iss, fechaIngreso, ',');
+
+            int idPaciente;
+            std::stringstream ss(idStr);
+            ss >> idPaciente;
+
+            if (idPaciente == id) {
+                std::cout << "Información del paciente:\n";
+                std::cout << "ID: " << idPaciente << "\n";
+                std::cout << "Nombre: " << nombre << "\n";
+                std::cout << "Fecha de Ingreso: " << fechaIngreso << "\n";
+                encontrado = true;
+                break;
+            }
+        }
+        archivo.close();
+        if (!encontrado) {
+            std::cout << "Paciente con ID " << id << "no encontrado. \n";
+        }
+        
+    }
+    else {
+        std::cerr << "No se pudo abrir el archivo para leer los datos de los pacientes. \n";
+    }
+}
+
 int Paciente::obtenerUltimoID() {
     std::ifstream archivo("pacientes.txt");
     int ultimoID = 0;

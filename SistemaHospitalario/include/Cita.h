@@ -19,6 +19,7 @@ public:
     static void listarCitasDesdeArchivo();
     static void guardarCitaEnArchivo(const CitaMedica& cita);
     static int obtenerUltimoID();
+    static void mostrarInformacionCita(int idCita);
 };
 
 #endif

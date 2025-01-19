@@ -5,7 +5,7 @@
 #include <sstream>
 
 CitaMedica::CitaMedica(int idCita, int idPaciente, int idMedico, std::string fecha, bool esUrgente)
-    : idPaciente(idPaciente), idMedico(idMedico), fecha(fecha), esUrgente(esUrgente) {
+    : idCita(idCita), idPaciente(idPaciente), idMedico(idMedico), fecha(fecha), esUrgente(esUrgente) {
 }
 
 void CitaMedica::asignarCita(std::vector<CitaMedica>& citas, int idCita, int idPaciente, int idMedico, std::string fecha, bool esUrgente) {
@@ -61,7 +61,7 @@ void CitaMedica::listarCitasDesdeArchivo() {
             std::getline(iss, idMedico, ',');
             std::getline(iss, fecha, ',');
             std::getline(iss, esUrgente, ',');
-            std::cout << "ID Paciente: " << idPaciente << ", ID Médico: " << idMedico << ", Fecha: " << fecha << ", Urgente: " << esUrgente << std::endl;
+            std::cout << "ID Cita: " << idCita << ", ID Paciente: " << idPaciente << ", ID Médico: " << idMedico << ", Fecha: " << fecha << ", Urgente: " << esUrgente << std::endl;
         }
         archivo.close();
     }
@@ -73,16 +73,58 @@ void CitaMedica::listarCitasDesdeArchivo() {
 void CitaMedica::guardarCitaEnArchivo(const CitaMedica& cita) {
     std::ofstream archivo("citas.txt", std::ios::app); // Abre el archivo en modo "append" para añadir sin borrar
     if (archivo.is_open()) {
-        archivo << cita.idCita << cita.idPaciente << "," << cita.idMedico << "," << cita.fecha << "," << (cita.esUrgente ? "Sí" : "No") << "\n";
+        archivo << cita.idCita << "," << cita.idPaciente << "," << cita.idMedico << "," << cita.fecha << "," << (cita.esUrgente ? "Sí" : "No") << "\n";
         archivo.close();
     }
     else {
         std::cerr << "No se pudo abrir el archivo para guardar los datos de la cita.\n";
     }
 }
+
+void CitaMedica::mostrarInformacionCita(int idCita) {
+    std::ifstream archivo("citas.txt");
+    if (archivo.is_open()) {
+        std::string linea;
+        bool encontrado = false;
+        while (std::getline(archivo, linea)) {
+            std::istringstream iss(linea);
+            std::string idCitaStr, idPaciente, idMedico, fecha, esUrgente;
+            std::getline(iss, idCitaStr, ',');
+            std::getline(iss, idPaciente, ',');
+            std::getline(iss, idMedico, ',');
+            std::getline(iss, fecha, ',');
+            std::getline(iss, esUrgente, ',');
+
+            int idCitaArchivo;
+            std::stringstream ss(idCitaStr);
+            ss >> idCitaArchivo;
+
+            if (idCitaArchivo == idCita) {
+                std::cout << "Información de la cita:\n";
+                std::cout << "ID: " << idCitaArchivo << "\n";
+                std::cout << "ID del paciente: " << idPaciente << "\n";
+                std::cout << "ID del médico: " << idMedico << "\n";
+                std::cout << "Fecha: " << fecha << "\n";
+                std::cout << "¿Es Urgente? " << esUrgente << "\n";
+                encontrado = true;
+                break;
+            }
+        }
+        archivo.close();
+        if (!encontrado) {
+            std::cout << "Cita con ID " << idCita << "no encontrada. \n";
+        }
+
+    }
+    else {
+        std::cerr << "No se pudo abrir el archivo para leer los datos de las citas. \n";
+    }
+}
+
+
 int CitaMedica::obtenerUltimoID() {
     std::ifstream archivo("citas.txt");
-    int ultimoIDCita = 0;
+    int ultimoID = 0;
     if (archivo.is_open()) {
         std::string linea;
         while (std::getline(archivo, linea)) {
@@ -90,19 +132,16 @@ int CitaMedica::obtenerUltimoID() {
             std::string idCitaStr;
             std::getline(iss, idCitaStr, ',');
 
-            if (!idCitaStr.empty()) {
-                int idCita;
-                std::stringstream ss(idCitaStr);
-                ss >> idCita;
-                if (idCita > ultimoIDCita) {
-                    ultimoIDCita = idCita;
-                }
-            }
+            int idCita;
+            std::stringstream ss(idCitaStr);
+            ss >> idCita;
+            ultimoID = idCita;      
+            
         }
         archivo.close();
-    }
-    else {
+        return ultimoID;
+    }else {
         std::cerr << "No se pudo abrir el archivo para leer los datos de las citas.\n";
     }
-    return ultimoIDCita;
+    return ultimoID;
 }

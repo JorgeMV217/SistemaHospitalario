@@ -17,6 +17,7 @@ public:
     static void listarPacientesDesdeArchivo();
     static void guardarPacienteEnArchivo(const Paciente& paciente);
     static int obtenerUltimoID();
+    static void mostrarInformacionPaciente(int id);
 
 };
 
