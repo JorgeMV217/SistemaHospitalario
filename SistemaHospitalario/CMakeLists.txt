@@ -11,7 +11,5 @@ endif()
 
 project ("SistemaHospitalario")
 
-# Incluya los subproyectos.
-add_subdirectory ("SistemaHospitalario")
 include_directories(include)
-add_executable(SistemaHospitalario "main.cpp" src/Paciente.cpp src/Medico.cpp src/Cita.cpp)
+add_executable(SistemaHospitalario src/main.cpp src/Paciente.cpp src/Medico.cpp src/Cita.cpp)
