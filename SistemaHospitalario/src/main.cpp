@@ -2,176 +2,191 @@
 #include <vector>
 #include <wchar.h>
 #include <locale>
+#include "Archivos.h"
 #include "Paciente.h"
 #include "Medico.h"
 #include "Cita.h"
 
-using namespace std;
 
-void gestionarPacientes(vector<Paciente>& pacientes) {
+void gestionarPacientes(std::vector<Paciente>& pacientes) {
     int opcion;
-    string nombre;
+    std::string nombre;
     int id;
-    string fechaIngreso;
+    std::string fechaIngreso;
 
     do {
-        cout << "\nGestión de Pacientes\n";
-        cout << "1. Alta de paciente\n";
-        cout << "2. Baja de paciente\n";
-        cout << "3. Listar pacientes\n";
-        cout << "4. Mostrar información de un paciente por ID\n";
-        cout << "5. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
-        cin >> opcion;
-        cin.ignore();
+        std::cout << "\nGestión de Pacientes\n";
+        std::cout << "1. Alta de paciente\n";
+        std::cout << "2. Baja de paciente\n";
+        std::cout << "3. Listar pacientes\n";
+        std::cout << "4. Mostrar información de un paciente por ID\n";
+        std::cout << "5. Volver al menú principal\n";
+        std::cout << "Seleccione una opción: ";
+        std::cin >> opcion;
+        std::cin.ignore();
 
         switch (opcion) {
         case 1:
-            cout << "Nombre: ";
-            getline(cin, nombre);
-            cout << "Fecha de Ingreso: ";
-            getline(cin, fechaIngreso);
+            std::cout << "Nombre: ";
+            std::getline(std::cin, nombre);
+            std::cout << "Fecha de Ingreso: ";
+            std::getline(std::cin, fechaIngreso);
             Paciente::altaPaciente(pacientes, nombre, 0, fechaIngreso);
             break;
         case 2:
-            cout << "ID del paciente a dar de baja: ";
-            cin >> id;
+            std::cout << "ID del paciente a dar de baja: ";
+            std::cin >> id;
             Paciente::bajaPaciente(pacientes, id);
             break;
         case 3:
             Paciente::listarPacientesDesdeArchivo();
             break;
         case 4:
-            cout << "ID del paciente a mostrar: ";
-            cin >> id;
-            Paciente::mostrarInformacionPaciente(id);
+            std::cout << "ID del paciente a mostrar: ";
+            std::cin >> id;
+			for (const Paciente& paciente : pacientes) {
+				if (paciente.id == id) {
+					paciente.mostrarInformacion();
+					break;
+				}
+			}
             break;
         case 5:
             return;
         default:
-            cout << "Opción no válida.\n";
+            std::cout << "Opción no válida.\n";
             break;
         }
     } while (opcion != 4);
 }
 
-void gestionarMedicos(vector<Medico>& medicos) {
+void gestionarMedicos(std::vector<Medico>& medicos) {
     int opcion;
-    string nombre;
+    std::string nombre;
     int id;
-    string especialidad;
+    std::string especialidad;
 
     do {
-        cout << "\nGestión de Médicos\n";
-        cout << "1. Alta de médico\n";
-        cout << "2. Baja de médico\n";
-        cout << "3. Listar médicos\n";
-        cout << "4. Mostrar información de un médico\n";
-        cout << "5. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
-        cin >> opcion;
-        cin.ignore();
+        std::cout << "\nGestión de Médicos\n";
+        std::cout << "1. Alta de médico\n";
+        std::cout << "2. Baja de médico\n";
+        std::cout << "3. Listar médicos\n";
+        std::cout << "4. Mostrar información de un médico\n";
+        std::cout << "5. Volver al menú principal\n";
+        std::cout << "Seleccione una opción: ";
+        std::cin >> opcion;
+        std::cin.ignore();
 
         switch (opcion) {
         case 1:
-            cout << "Nombre: ";
-            getline(cin, nombre);
-            cout << "Especialidad: ";
-            getline(cin, especialidad);
+            std::cout << "Nombre: ";
+            std::getline(std::cin, nombre);
+            std::cout << "Especialidad: ";
+            std::getline(std::cin, especialidad);
             Medico::altaMedico(medicos, nombre, 0, especialidad);
             break;
         case 2:
-            cout << "ID del médico a dar de baja: ";
-            cin >> id;
+            std::cout << "ID del médico a dar de baja: ";
+            std::cin >> id;
             Medico::bajaMedico(medicos, id);
             break;
         case 3:
             Medico::listarMedicosDesdeArchivo();
             break;
         case 4:
-            cout << "ID del médico a mostrar: ";
-            cin >> id;
-            Medico::mostrarInformacionMedico(id);
-            break;
+            std::cout << "ID del médico a mostrar: ";
+            std::cin >> id;
+            for (const Medico& medico : medicos) {
+                if (medico.id == id) {
+                    medico.mostrarInformacion();
+                    break;
+                }
+            }
+                break;
         case 5:
             return;
         default:
-            cout << "Opción no válida.\n";
+            std::cout << "Opción no válida.\n";
             break;
-        }
-    } while (opcion != 4);
+            }
+    } while (opcion != 5);
 }
 
-void gestionarCitas(vector<CitaMedica>& citas, const vector<Paciente>& pacientes, const vector<Medico>& medicos) {
+void gestionarCitas(std::vector<CitaMedica>& citas) {
     int opcion;
     int idCita;
     int idPaciente;
     int idMedico;
-    string fecha;
+    std::string fecha;
     bool esUrgente;
 
     do {
-        cout << "\nGestión de Citas\n";
-        cout << "1. Asignar cita\n";
-        cout << "2. Cancelar cita\n";
-        cout << "3. Listar citas\n";
-        cout << "4. Mostrar información de una cita\n";
-        cout << "5. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
-        cin >> opcion;
-        cin.ignore();
+        std::cout << "\nGestión de Citas\n";
+        std::cout << "1. Asignar cita\n";
+        std::cout << "2. Cancelar cita\n";
+        std::cout << "3. Listar citas\n";
+        std::cout << "4. Mostrar información de una cita\n";
+        std::cout << "5. Volver al menú principal\n";
+        std::cout << "Seleccione una opción: ";
+        std::cin >> opcion;
+        std::cin.ignore();
 
         switch (opcion) {
         case 1:
-            cout << "ID del Paciente: ";
-            cin >> idPaciente;
-            cout << "ID del Médico: ";
-            cin >> idMedico;
-            cout << "Fecha (YYYY-MM-DD): ";
-            cin >> fecha;
-            cout << "Es urgente? (1 para sí, 0 para no): ";
-            cin >> esUrgente;
+            std::cout << "ID del Paciente: ";
+            std::cin >> idPaciente;
+            std::cout << "ID del Médico: ";
+            std::cin >> idMedico;
+            std::cout << "Fecha (YYYY-MM-DD): ";
+            std::cin >> fecha;
+            std::cout << "Es urgente? (1 para sí, 0 para no): ";
+            std::cin >> esUrgente;
             CitaMedica::asignarCita(citas, 0, idPaciente, idMedico, fecha, esUrgente);
             break;
         case 2:
-            cout << "ID de la Cita: ";
-            cin >> idCita;
+            std::cout << "ID de la Cita: ";
+            std::cin >> idCita;
             CitaMedica::cancelarCita(citas, idCita);
             break;
         case 3:
             CitaMedica::listarCitasDesdeArchivo();
             break;
         case 4:
-            cout << "ID de la Cita a mostrar: ";
-            cin >> idCita;
-            CitaMedica::mostrarInformacionCita(idCita);
+            std::cout << "ID de la Cita a mostrar: ";
+            std::cin >> idCita;
+			for (const CitaMedica& cita : citas) {
+				if (cita.idCita == idCita) {
+					cita.mostrarInformacionCita(idCita);
+					break;
+				}
+			}
             break;
         case 5:
             return;
         default:
-            cout << "Opción no válida.\n";
+            std::cout << "Opción no válida.\n";
             break;
         }
-    } while (opcion != 4);
+    } while (opcion != 5);
 }
 
 int main() {
 
     setlocale(LC_ALL, "");
-    vector<Paciente> pacientes;
-    vector<Medico> medicos;
-    vector<CitaMedica> citas;
+    std::vector<Paciente> pacientes;
+    std::vector<Medico> medicos;
+    std::vector<CitaMedica> citas;
 
     int opcion;
 
     do {
-        cout << "\nMenú Principal\n";
-        cout << "1. Gestionar Pacientes\n";
-        wcout << "2. Gestionar Médicos\n";
-        cout << "3. Gestionar Citas\n";
-        cout << "4. Salir\n";
-        cout << "Seleccione una opción: ";
-        cin >> opcion;
+        std::cout << "\nMenú Principal\n";
+        std::cout << "1. Gestionar Pacientes\n";
+        std::wcout << "2. Gestionar Médicos\n";
+        std::cout << "3. Gestionar Citas\n";
+        std::cout << "4. Salir\n";
+        std::cout << "Seleccione una opción: ";
+        std::cin >> opcion;
 
         switch (opcion) {
         case 1:
@@ -181,13 +196,13 @@ int main() {
             gestionarMedicos(medicos);
             break;
         case 3:
-            gestionarCitas(citas, pacientes, medicos);
+            gestionarCitas(citas);
             break;
         case 4:
-            cout << "Saliendo del programa...\n";
+            std::cout << "Saliendo del programa...\n";
             break;
         default:
-            cout << "Opción no válida.\n";
+            std::cout << "Opción no válida.\n";
             break;
         }
     } while (opcion != 4);

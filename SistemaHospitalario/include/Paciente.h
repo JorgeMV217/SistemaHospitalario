@@ -10,14 +10,17 @@ public:
     int id;
     std::string fechaIngreso;
 
+    Paciente();
     Paciente(std::string nombre, int id, std::string fechaIngreso);
 
     static void altaPaciente(std::vector<Paciente>& pacientes, std::string nombre, int id, std::string fechaIngreso);
     static void bajaPaciente(std::vector<Paciente>& pacientes, int id);
     static void listarPacientesDesdeArchivo();
-    static void guardarPacienteEnArchivo(const Paciente& paciente);
-    static int obtenerUltimoID();
-    static void mostrarInformacionPaciente(int id);
+    void guardarEnArchivo() const;
+    void mostrarInformacion() const;
+
+    std::string toString() const;
+	void fromString(const std::string& str);
 
 };
 

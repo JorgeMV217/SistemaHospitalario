@@ -12,14 +12,17 @@ public:
     std::string fecha;
     bool esUrgente;
 
+    CitaMedica();
     CitaMedica(int idCita, int idPaciente, int idMedico, std::string fecha, bool esUrgente);
 
     static void asignarCita(std::vector<CitaMedica>& citas, int idCita, int idPaciente, int idMedico, std::string fecha, bool esUrgente);
     static void cancelarCita(std::vector<CitaMedica>& citas, int idCita);
     static void listarCitasDesdeArchivo();
-    static void guardarCitaEnArchivo(const CitaMedica& cita);
-    static int obtenerUltimoID();
-    static void mostrarInformacionCita(int idCita);
+    void guardarEnArchivo() const;
+    void mostrarInformacionCita(int idCita) const;
+
+	std::string toString() const;
+	void fromString(const std::string& str);
 };
 
 #endif
