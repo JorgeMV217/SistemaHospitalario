@@ -5,12 +5,9 @@
 #include <fstream>
 #include <sstream>
 
-Paciente::Paciente()
-	: nombre(""), id(0), fechaIngreso("") {
-}
+Paciente::Paciente() : Persona(), fechaIngreso("") {}
 Paciente::Paciente(std::string nombre, int id, std::string fechaIngreso)
-    : nombre(nombre), id(id), fechaIngreso(fechaIngreso) {
-}
+    : Persona(nombre, id), fechaIngreso(fechaIngreso) {}
 
 
 void Paciente::altaPaciente(std::vector<Paciente>& pacientes, std::string nombre, int id, std::string fechaIngreso) {

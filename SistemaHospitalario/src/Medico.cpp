@@ -5,11 +5,10 @@
 #include <fstream>
 #include <sstream>
 
-Medico::Medico()
-	: nombre(""), id(0), especialidad("") {
-}
+Medico::Medico() : Persona(), especialidad("") {}
+
 Medico::Medico(std::string nombre, int id, std::string especialidad)
-    : nombre(nombre), id(id), especialidad(especialidad) {
+    : Persona(nombre, id), especialidad(especialidad) {
 }
 
 void Medico::altaMedico(std::vector<Medico>& medicos, std::string nombre, int id, std::string especialidad) {

@@ -12,4 +12,4 @@ endif()
 project ("SistemaHospitalario")
 
 include_directories(include)
-add_executable(SistemaHospitalario src/main.cpp src/Paciente.cpp src/Medico.cpp src/Cita.cpp src/Archivos.cpp)
+add_executable(SistemaHospitalario src/main.cpp src/Paciente.cpp src/Medico.cpp src/Cita.cpp src/Archivos.cpp src/Persona.cpp)
